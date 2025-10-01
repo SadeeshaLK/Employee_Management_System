@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Attendance Records</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f9fafb;
+            color: #333;
+        }
+
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .container {
+            padding: 40px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #111827;
+            border-left: 6px solid #2563eb;
+            padding-left: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background: #f3f4f6;
+        }
+
+        a.button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        a.button:hover {
+            background: #1e40af;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #111827;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Employee Management System - Attendance Records
+</header>
+
+<div class="container">
+    <h2><i class="fa-solid fa-calendar-check"></i> All Attendance Records</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Employee</th>
+            <th>Date</th>
+            <th>Check In</th>
+            <th>Check Out</th>
+            <th>Status</th>
+            <th>View Shift</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="att : ${records}">
+            <td th:text="${att.employee.firstName} + ' ' + ${att.employee.lastName}"></td>
+            <td th:text="${att.date}"></td>
+            <td th:text="${att.checkIn}"></td>
+            <td th:text="${att.checkOut}"></td>
+            <td th:text="${att.status}"></td>
+            <td>
+                <a class="button" th:href="@{/attendance/records/{empId}(empId=${att.employee.id})}">
+                    <i class="fa-solid fa-eye"></i> View Shifts
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a class="back-btn" th:href="@{/}">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+</div>
+
+<footer>
+    © 2025 Employee Management System. All rights reserved.
+</footer>
+
+</body>
+</html>

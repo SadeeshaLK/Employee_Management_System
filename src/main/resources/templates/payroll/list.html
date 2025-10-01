@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Payroll List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+        nav a {
+            color: white;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            margin-top: 30px;
+        }
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            padding: 20px;
+            background: white;
+        }
+        .btn-custom {
+            background: #2980b9;
+            color: white;
+        }
+        .btn-custom:hover {
+            background: #1f6390;
+        }
+        .table thead {
+            background: #2c3e50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+    <h2><i class="fas fa-money-check-dollar"></i> Payroll Management</h2>
+    <nav>
+        <a th:href="@{/dashboard}"><i class="fas fa-home"></i> Dashboard</a>
+        <a th:href="@{/payrolls/create}"><i class="fas fa-plus-circle"></i> Add Payroll</a>
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button class="btn btn-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </form>
+    </nav>
+</header>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h3><i class="fas fa-list"></i> Payroll List</h3>
+        <a th:href="@{/dashboard}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Payroll List Table -->
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Employee</th>
+                    <th>Basic Salary</th>
+                    <th>Allowances</th>
+                    <th>Deductions</th>
+                    <th>Net Salary</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="p : ${payrolls}">
+                    <td th:text="${p.id}"></td>
+                    <td th:text="${p.employee.firstName + ' ' + p.employee.lastName}"></td>
+                    <td th:text="${p.basicSalary}"></td>
+                    <td th:text="${p.allowances}"></td>
+                    <td th:text="${p.deductions}"></td>
+                    <td th:text="${p.netSalary}"></td>
+                    <td>
+                        <a th:href="@{'/payrolls/' + ${p.id} + '/edit'}"
+                           class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                        <form th:action="@{'/payrolls/' + ${p.id} + '/delete'}"
+                              method="post" style="display:inline">
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </form>
+                        <a th:href="@{'/payrolls/' + ${p.id} + '/pdf'}"
+                           class="btn btn-sm btn-info text-white">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2025 Employee Management System | Designed for HR & Payroll</p>
+</footer>
+
+</body>
+</html>

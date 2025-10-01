@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Profile</title>
+</head>
+<body>
+<h2>Welcome, <span th:text="${employee.firstName}"></span>!</h2>
+
+<h3>My Details</h3>
+<ul>
+    <li><b>Name:</b> <span th:text="${employee.firstName + ' ' + employee.lastName}"></span></li>
+    <li><b>Email:</b> <span th:text="${employee.email}"></span></li>
+    <li><b>Department:</b> <span th:text="${employee.department.name}"></span></li>
+    <li><b>Role:</b> <span th:text="${employee.role}"></span></li>
+</ul>
+
+<h3>Recent Attendance (Last 30 Days)</h3>
+<table border="1">
+    <tr>
+        <th>Date</th>
+        <th>Check In</th>
+        <th>Check Out</th>
+        <th>Shift Hours</th>
+        <th>Overtime Hours</th>
+    </tr>
+    <tr th:each="rec : ${attendanceList}">
+        <td th:text="${rec.date}"></td>
+        <td th:text="${rec.checkIn}"></td>
+        <td th:text="${rec.checkOut}"></td>
+        <td th:text="${rec.shiftHours}"></td>
+        <td th:text="${rec.overtimeHours}"></td>
+    </tr>
+</table>
+
+<h3>Salary Information</h3>
+<div th:if="${payroll != null}">
+    <p><b>Base Salary:</b> <span th:text="${payroll.baseSalary}"></span></p>
+    <p><b>Overtime Pay:</b> <span th:text="${payroll.overtimePay}"></span></p>
+    <p><b>Total Salary:</b> <span th:text="${payroll.totalSalary}"></span></p>
+</div>
+<div th:if="${payroll == null}">
+    <p>No payroll records available.</p>
+</div>
+
+<p><a th:href="@{/}">Back to Dashboard</a></p>
+</body>
+</html>
+ml>

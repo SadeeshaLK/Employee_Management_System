@@ -21,7 +21,11 @@ public class Attendance {
     private LocalTime checkIn;
     private LocalTime checkOut;
     private String status;
+    @Transient
+    private Double shiftHours;
 
+    @Transient
+    private Double overtimeHours;
     // --- Getters & Setters ---
     public Long getId() {
         return id;
@@ -70,4 +74,10 @@ public class Attendance {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Double getShiftHours() { return shiftHours; }
+    public void setShiftHours(Double shiftHours) { this.shiftHours = shiftHours; }
+
+    public Double getOvertimeHours() { return overtimeHours; }
+    public void setOvertimeHours(Double overtimeHours) { this.overtimeHours = overtimeHours; }
 }
