@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Employee List</title>
+</head>
+<body>
+<h1>Employee List</h1>
+
+<a th:href="@{/employees/new}">Add New Employee</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Job Title</th>
+        <th>Position</th>
+        <th>Department</th>
+        <th>Hire Date</th>
+        <th>Salary</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.id}"></td>
+        <td th:text="${employee.firstName + ' ' + employee.lastName}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.phone}"></td>
+        <td th:text="${employee.jobTitle}"></td>
+        <td th:text="${employee.position}"></td>
+        <td th:text="${employee.department != null ? employee.department.name : ''}"></td>
+        <td th:text="${employee.hireDate}"></td>
+        <td th:text="${employee.salary}"></td>
+        <td>
+            <a th:href="@{/employees/edit/{id}(id=${employee.id})}">Edit</a> |
+            <a th:href="@{/employees/delete/{id}(id=${employee.id})}"
+               onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

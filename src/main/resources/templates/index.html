@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>EMS Home</title></head>
+<body>
+<h1>Employee Management System</h1>
+<nav>
+    <a th:href="@{/employees}">Employees</a> |
+    <a th:href="@{/attendance}">Attendance</a> |
+    <a th:href="@{/leaves/list}">Leaves</a> |
+    <a th:href="@{/payrolls/create}">Payroll</a> |
+    <a th:href="@{/reviews}">Performance</a> |
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+
+</nav>
+<p>Welcome!</p>
+</body>
+</html>
